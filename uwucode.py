@@ -1,7 +1,8 @@
 import sys
 
 intext = sys.stdin.read()
-
+if len(intext) == 0:
+    exit('Pipe some text into stdin') 
 primemap = { 3: ' ', 5: '.', 7: '!', 11: '?'}
 uwumap = { 0: 'u', 1: 'w', 2: 'U', 3: 'W' }
 
@@ -10,7 +11,7 @@ def flipdict(d):
     return {value: key for key, value in d.items()}
 
 def uwuify(instr):
-    print('uwuifying.......')
+    print('~ uwuifying.......')
     ostr = ''
     for b in instr:
         tb = ord(b)
@@ -28,7 +29,7 @@ def uwuify(instr):
     return(ostr)
 
 def deuwu(instr):
-    print('deuwuifying.......')
+    print('~ deuwuifying.......')
     ostr = ''
     deuwumap = flipdict(uwumap)
     deprimemap = flipdict(primemap)
@@ -42,6 +43,9 @@ def deuwu(instr):
         ostr += chr(val)
     return(ostr)
 
-uwued = uwuify(intext)
-print(uwued)
-print(deuwu(uwued))
+print(uwuify(intext.strip()))
+print()
+try:
+    print(deuwu(intext.strip()))
+except Exception as e:
+    exit("Unable to de-uwu input text")
